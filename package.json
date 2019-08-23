@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "",
-    "build": "npx babel source.js --out-file index.js"
+    "build": "npx babel source.js --out-file index.js",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
