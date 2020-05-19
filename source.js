@@ -20,7 +20,7 @@ function preloadResource(href, rel = 'prerender', as, crossorigin = false, type)
     if (!href) {
         throw new Error('preloadResource: you must specify an href')
     }
-    if(ref === "prefetch" || rel === "preload") {
+    if(rel === "prefetch" || rel === "preload") {
         if (!as) {
             throw new Error('preloadResource: you must specify what "as" type resource this is when preloading or prefetching. Read - https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf')
         }
