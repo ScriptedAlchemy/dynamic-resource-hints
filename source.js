@@ -1,6 +1,6 @@
 const makeHint = (href, rel, as, crossorigin, type) => {
     let link = document.createElement("link");
-    link.setAttribute("rel", type);
+    link.setAttribute("rel", rel);
     link.setAttribute("href", href);
     crossorigin && link.setAttribute("crossorigin", crossorigin);
     type && link.setAttribute("type", type);
@@ -26,11 +26,11 @@ function preloadResource(href, rel = 'prerender', as, crossorigin = false, type)
         }
     }
     if (!hasBeenPrerendered.includes(href)) {
-        hasBeenPrerendered.push(makeHint(href, rel));
+        hasBeenPrerendered.push(makeHint(href, rel, as, crossorigin, type));
     }
 
     if (!hasBeenPrefetched.includes(href)) {
-        hasBeenPrefetched.push(makeHint(href, 'prefetch'));
+        hasBeenPrefetched.push(makeHint(href, rel, as, crossorigin, type));
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "dynamic-resource-hints",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Dynamically add preload browser hints at runtime",
   "main": "index.js",
   "scripts": {

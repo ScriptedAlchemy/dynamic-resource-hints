@@ -1,6 +1,6 @@
 var makeHint = function makeHint(href, rel, as, crossorigin, type) {
   var link = document.createElement("link");
-  link.setAttribute("rel", type);
+  link.setAttribute("rel", rel);
   link.setAttribute("href", href);
   crossorigin && link.setAttribute("crossorigin", crossorigin);
   type && link.setAttribute("type", type);
@@ -30,18 +30,18 @@ function preloadResource(href, rel, as, crossorigin, type) {
     throw new Error('preloadResource: you must specify an href');
   }
 
-  if (ref === "prefetch" || rel === "preload") {
+  if (rel === "prefetch" || rel === "preload") {
     if (!as) {
       throw new Error('preloadResource: you must specify what "as" type resource this is when preloading or prefetching. Read - https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf');
     }
   }
 
   if (!hasBeenPrerendered.includes(href)) {
-    hasBeenPrerendered.push(makeHint(href, rel));
+    hasBeenPrerendered.push(makeHint(href, rel, as, crossorigin, type));
   }
 
   if (!hasBeenPrefetched.includes(href)) {
-    hasBeenPrefetched.push(makeHint(href, 'prefetch'));
+    hasBeenPrefetched.push(makeHint(href, rel, as, crossorigin, type));
   }
 }
 
