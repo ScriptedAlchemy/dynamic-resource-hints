@@ -1,5 +1,11 @@
 var makeHint = function makeHint(href, rel, as, crossorigin, type) {
   var link = document.createElement("link");
+  var existingLink = document.querySelector("link[href=\"" + href + "\"]");
+
+  if (existingLink) {
+    if (existingLink.getAttribute(rel)) return;
+  }
+
   link.setAttribute("rel", rel);
   link.setAttribute("href", href);
   crossorigin && link.setAttribute("crossorigin", crossorigin);
@@ -11,14 +17,14 @@ var makeHint = function makeHint(href, rel, as, crossorigin, type) {
 
 var hasBeenPrerendered = [];
 var hasBeenPrefetched = [];
-var allowedRels = ['preload', 'prefetch', 'prerender', 'subresource', 'prefetch', 'preconnect', 'dns-prefetch'];
+var allowedRels = ['preload', 'prerender', 'subresource', 'prefetch', 'preconnect', 'dns-prefetch'];
 
 function preloadResource(href, rel, as, crossorigin, type) {
-  if (rel === void 0) {
+  if (!rel) {
     rel = 'prerender';
   }
 
-  if (crossorigin === void 0) {
+  if (!crossorigin) {
     crossorigin = false;
   }
 
@@ -36,13 +42,7 @@ function preloadResource(href, rel, as, crossorigin, type) {
     }
   }
 
-  if (!hasBeenPrerendered.includes(href)) {
-    hasBeenPrerendered.push(makeHint(href, rel, as, crossorigin, type));
-  }
-
-  if (!hasBeenPrefetched.includes(href)) {
-    hasBeenPrefetched.push(makeHint(href, rel, as, crossorigin, type));
-  }
+  makeHint(href, rel, as, crossorigin, type);
 }
 
 module.exports = preloadResource;
